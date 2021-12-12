@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const FormStyled = styled.form`
@@ -8,7 +8,6 @@ const LabelStyled = styled.label`
 	padding-right: 10px;
 	font-size: 25px;
 `
-
 const InputStyled = styled.input`
 	text-align: center;
 	max-width: 200px;
@@ -45,21 +44,78 @@ const SelectStyled = styled.select`
 	}
 `
 
-const CurrencyConverterForm = () => {
+const CurrencyConverterForm = ({currencyRatesMap}) => {
+	const outputCurrencyCodes = Object.keys(currencyRatesMap);
+	const [inputAmount, setInputAmount] = useState(100);
+	const [outputAmount, setOutputAmount] = useState(100);
+	const [outputCurrencyCode, setOutputCurrencyCode] = useState(outputCurrencyCodes[0])
+
+
+	const calculateOutput = (inputAmount) => {
+		const rate = currencyRatesMap[outputCurrencyCode];
+		const outputAmount = (inputAmount / rate).toFixed(2);
+		setOutputAmount(outputAmount);
+	}
+
+	const calculateInput = (outputAmount) => {
+		const rate = currencyRatesMap[outputCurrencyCode];
+		const inputAmount = (outputAmount * rate).toFixed(2);
+		setInputAmount(inputAmount);
+	}
+	
+	const handleOutputCurrencyCodeChange = (e) => {
+		setOutputCurrencyCode(e.target.value);
+	}
+
+	const handleInputAmountChange = (e) => {
+		const inputAmount = Number(e.target.value.replace(/,/, '.'));
+
+		if (e.target.value) {
+			setInputAmount(inputAmount);
+			calculateOutput(inputAmount);
+		}
+	}
+
+	const handleOutputAmountChange = (e) => {
+		const outputAmount = Number(e.target.value.replace(/,/, '.'));
+		if (e.target.value) {
+			setOutputAmount(outputAmount);
+			calculateInput(outputAmount);
+		}
+	}
+
+useEffect(() => {
+	calculateOutput(inputAmount);
+}, [outputCurrencyCode]);
+
 	return (
 		<FormStyled>
 			<LabelStyled>
-			<InputStyled type="number" defaultValue={10000} min={1} />
+			<InputStyled
+				type="number"
+				name="converterInputValue"
+				value={inputAmount}
+				min={1}
+				onChange={handleInputAmountChange}
+			/>
 			<SelectStyled disabled>
-					<option defaultValue={true} value="CZK">CZK</option>
+					<option value="CZK">CZK</option>
 				</SelectStyled>
 			</LabelStyled>
 			<br />
 			<LabelStyled>
-				<InputStyled type="number" defaultValue={10000} min={1} />
-				<SelectStyled>
-					<option value="EUR">EUR</option>
-					<option value="USD">USD</option>
+				<InputStyled
+					onChange={handleOutputAmountChange}
+					type="number"
+					name="converterOutputAmount"
+					value={outputAmount}
+					min={1}
+				/>
+				<SelectStyled
+					name="currencyCodesList"
+					onChange={handleOutputCurrencyCodeChange}
+				>
+					{outputCurrencyCodes.map(code => <option key={code} value={code}>{code}</option>)}
 				</SelectStyled>
 			</LabelStyled>
 		</FormStyled>

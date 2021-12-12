@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -32,10 +33,15 @@ const Global = createGlobalStyle`
 }
 `
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-		<Global />
-    <App />
+		<QueryClientProvider client={queryClient}>
+			<Global />
+			<App />
+		</QueryClientProvider>
+		
   </React.StrictMode>,
   document.getElementById('root')
 );

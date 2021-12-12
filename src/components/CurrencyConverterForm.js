@@ -12,11 +12,18 @@ const LabelStyled = styled.label`
 const InputStyled = styled.input`
 	text-align: center;
 	max-width: 200px;
-	font-size: 22px;
 	border-radius: 5px;
 	border-width: 0.7px;
-	margin: 0 20px;
+	margin: 10px 20px;
 	opacity: 0.5;
+	background-color: transparent;
+	text-align: center;
+	font-size: 40px;
+	color: white;
+	::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 	:focus-visible{
 		outline: none;
 		opacity: 0.7;
@@ -24,9 +31,11 @@ const InputStyled = styled.input`
 	}
 `
 const SelectStyled = styled.select`
-	font-size: 22px;
+	font-size: 25px;
 	border-radius: 5px;
 	border-color: transparent;
+	background-color: transparent;
+	vertical-align: super;
 	margin: 0 10px;
 	opacity: 0.5;
 	:focus-visible{
@@ -35,30 +44,19 @@ const SelectStyled = styled.select`
 		color: black;
 	}
 `
-const ResultInputStyled = styled(InputStyled)`
-	background-color: transparent;
-	text-align: center;
-	margin: 10px 0;
-	font-size: 40px;
-	color: white;
-	::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-`
 
 const CurrencyConverterForm = () => {
 	return (
 		<FormStyled>
 			<LabelStyled>
-			<ResultInputStyled type="number" defaultValue={10000} min={1} />
+			<InputStyled type="number" defaultValue={10000} min={1} />
 			<SelectStyled disabled>
 					<option defaultValue={true} value="CZK">CZK</option>
 				</SelectStyled>
 			</LabelStyled>
 			<br />
 			<LabelStyled>
-				<ResultInputStyled type="number" defaultValue={10000} min={1} />
+				<InputStyled type="number" defaultValue={10000} min={1} />
 				<SelectStyled>
 					<option value="EUR">EUR</option>
 					<option value="USD">USD</option>

@@ -12,6 +12,24 @@ const Global = createGlobalStyle`
 	box-sizing: border-box;	
 	font-family: consolas;
 }
+
+::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+  background: #f1f1f12e;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ae7a857a;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d367a1;
+}
 `
 
 ReactDOM.render(

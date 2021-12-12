@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { createGlobalStyle } from 'styled-components';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const Global = createGlobalStyle`
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;	
+	font-family: consolas;
+}
+`
+
 ReactDOM.render(
   <React.StrictMode>
+		<Global />
     <App />
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import CurrencyConverterForm from './components/CurrencyConverterForm';
+
+import { ExchangeRatesTable } from './components/ExchangeRatesTable';
+import Flex from './components/Flex';
+import Title from './components/Title';
+
+const AppWrapper = styled.div`
+	width: 100%;
+	min-height: 100vh;
+	padding: 2rem;
+	background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
+	color: white;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper className="App">
+      <Flex justify="center">
+				<Title>Currency converter</Title>
+			</Flex>
+			<Flex justify="space-around">
+				<ExchangeRatesTable headerItems={['Country', 'Currency', 'Amount', 'Code', 'Rate']} data={[]}/>
+				<CurrencyConverterForm />
+			</Flex>
+
+    </AppWrapper>
   );
 }
 

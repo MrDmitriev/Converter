@@ -6,7 +6,7 @@ color: white;
 padding-bottom: 50px;
 `
 
-const Title = ({children}) => {
+const Title: React.FC = ({children}) => {
 	return (
 		<TitleStyled>
 			{children}

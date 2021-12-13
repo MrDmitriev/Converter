@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { IExchangeRatesTableProps } from '../../interfaces/IExchangeRatesTableProps';
 
 const THeadStyled = styled.thead`
 `
@@ -12,7 +13,7 @@ const THStyled = styled.th`
   top: 0;
 `
 
-const ExchangeRatesTableHeader = ({currencyTableHeaders}) => {
+const ExchangeRatesTableHeader: React.FC<IExchangeRatesTableProps> = ({currencyTableHeaders = []}) => {
 	return (
 		<THeadStyled>
 			<tr>

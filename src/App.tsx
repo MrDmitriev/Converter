@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query'
+import { useQuery, UseQueryResult } from 'react-query'
 
 import Flex from './components/Common/Flex';
 import ExchangeRatesTable from './components/ExchangeRatesTable/ExchangeRatesTable';
@@ -18,16 +18,17 @@ const AppWrapper = styled.div`
 `
 
 function App() {
-	const { isLoading, isError, data = {}, error = {} } = useQuery('currencyRates', getCurrencyRates);
+	const { isLoading, isError, data, error }: UseQueryResult<string, Error> = useQuery('currencyRates', getCurrencyRates);
+	
 	if (isLoading) {
 		return <span>Loading...</span>
 	}
 
 	if (isError) {
-		return <span>Error: {error.message}</span>
+		return <span>`Error: ${error?.message}`</span>
 	}
 
-	const { currencyTableHeaders = [], currencyTableRows, currencyRatesMap } = getCurrencyData(data.data);
+	const { currencyTableHeaders = [], currencyTableRows, currencyRatesMap } = getCurrencyData(data);
 
   return (
     <AppWrapper className="App">

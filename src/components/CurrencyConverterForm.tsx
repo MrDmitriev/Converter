@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { IExchangeRatesTableProps } from '../interfaces/IExchangeRatesTableProps';
+import { convertToNumber } from '../utils';
+
 const FormStyled = styled.form`
 	padding: 20px;
 `
@@ -44,31 +47,31 @@ const SelectStyled = styled.select`
 	}
 `
 
-const CurrencyConverterForm = ({currencyRatesMap}) => {
+const CurrencyConverterForm: React.FC<IExchangeRatesTableProps> = ({currencyRatesMap = {}}) => {
 	const outputCurrencyCodes = Object.keys(currencyRatesMap);
 	const [inputAmount, setInputAmount] = useState(100);
 	const [outputAmount, setOutputAmount] = useState(100);
 	const [outputCurrencyCode, setOutputCurrencyCode] = useState(outputCurrencyCodes[0])
 
 
-	const calculateOutput = (inputAmount) => {
-		const rate = currencyRatesMap[outputCurrencyCode];
-		const outputAmount = (inputAmount / rate).toFixed(2);
+	const calculateOutput = (inputAmount: number) => {
+		const rate: number = currencyRatesMap[outputCurrencyCode];
+		const outputAmount: number = convertToNumber((inputAmount / rate).toFixed(2));
 		setOutputAmount(outputAmount);
 	}
 
-	const calculateInput = (outputAmount) => {
-		const rate = currencyRatesMap[outputCurrencyCode];
-		const inputAmount = (outputAmount * rate).toFixed(2);
+	const calculateInput = (outputAmount: number) => {
+		const rate: number = currencyRatesMap[outputCurrencyCode];
+		const inputAmount: number = convertToNumber((outputAmount * rate).toFixed(2));
 		setInputAmount(inputAmount);
 	}
 	
-	const handleOutputCurrencyCodeChange = (e) => {
+	const handleOutputCurrencyCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setOutputCurrencyCode(e.target.value);
 	}
 
-	const handleInputAmountChange = (e) => {
-		const inputAmount = Number(e.target.value.replace(/,/, '.'));
+	const handleInputAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const inputAmount = convertToNumber(e.target.value);
 
 		if (e.target.value) {
 			setInputAmount(inputAmount);
@@ -76,8 +79,8 @@ const CurrencyConverterForm = ({currencyRatesMap}) => {
 		}
 	}
 
-	const handleOutputAmountChange = (e) => {
-		const outputAmount = Number(e.target.value.replace(/,/, '.'));
+	const handleOutputAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const outputAmount = convertToNumber(e.target.value);
 		if (e.target.value) {
 			setOutputAmount(outputAmount);
 			calculateInput(outputAmount);
@@ -86,6 +89,7 @@ const CurrencyConverterForm = ({currencyRatesMap}) => {
 
 useEffect(() => {
 	calculateOutput(inputAmount);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [outputCurrencyCode]);
 
 	return (

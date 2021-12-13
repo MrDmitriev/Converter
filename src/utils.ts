@@ -1,11 +1,18 @@
-export const ConvertTextToJson = data => data.split('\n');
+import { ICurrencyRatesMap } from "./interfaces/ICurrencyRatesMap";
 
-export const getCurrencyRatesHeaders = (items) => items[1].split('|');
+export const ConvertTextToJson = (data: string) => data.split('\n');
 
-export const getCurrencyData = (textData) => {
+export const getCurrencyRatesHeaders = (items: string[]) => items[1].split('|');
+
+export const convertToNumber = (value: string) => {
+	return typeof value === 'string' ? Number(value.replace(/,/, '.')) : value;
+}
+
+export const getCurrencyData = (textData: any) => {
 	const items = ConvertTextToJson(textData);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [ _info, headers, ...values] = items;
-	let currencyRatesMap = {};
+	let currencyRatesMap: ICurrencyRatesMap = {};
 
 	const currencyTableHeaders = headers.split('|');
 	const currencyTableRows = values.filter(item => !!item).map(valueArr => valueArr.split('|'));

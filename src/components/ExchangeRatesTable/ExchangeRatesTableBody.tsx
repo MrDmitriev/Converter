@@ -1,9 +1,16 @@
 import React from 'react';
-import { IExchangeRatesTableProps } from '../../interfaces/IExchangeRatesTableProps';
+import { CurrencyTableRowData } from '../../types/CurrencyTableRowData';
 import TableRow from './TableRow';
 
+type Props = {
+	currencyTableHeaders?: string[];
+	currencyTableRows?: CurrencyTableRowData[];
+	currencyRatesMap?: {
+		[index: string]: number
+	}
+};
 
-const ExchangeRatesTableBody: React.FC<IExchangeRatesTableProps> = ({currencyTableRows = []}) => {
+const ExchangeRatesTableBody: React.FC<Props> = ({currencyTableRows = []}) => {
 	return (
 		<tbody>
 			{ currencyTableRows.map(row => <TableRow key={row[3]} row={row} />)}

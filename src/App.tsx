@@ -6,7 +6,7 @@ import Flex from './components/Common/Flex';
 import ExchangeRatesTable from './components/ExchangeRatesTable/ExchangeRatesTable';
 import CurrencyConverterForm from './components/CurrencyConverterForm';
 import { getCurrencyRates } from './api/currency';
-import { getCurrencyData } from './utils';
+import { getCurrencyData } from './utils/utils';
 import Title from './components/Common/Title';
 
 const AppWrapper = styled.div`

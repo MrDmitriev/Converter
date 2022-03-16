@@ -1,4 +1,7 @@
-import { ICurrencyRatesMap } from "./interfaces/ICurrencyRatesMap";
+import { PROXY_CORS_WORKAROUND } from "../constants/constants";
+import { ICurrencyRatesMap } from "../interfaces/ICurrencyRatesMap";
+
+export const getProxyUrl = (url: string) => `${PROXY_CORS_WORKAROUND}${encodeURI(url)}`
 
 export const ConvertTextToJson = (data: string) => data.split('\n');
 

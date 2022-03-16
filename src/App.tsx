@@ -8,6 +8,7 @@ import CurrencyConverterForm from './components/CurrencyConverterForm';
 import { getCurrencyRates } from './api/currency';
 import { getCurrencyData } from './utils/utils';
 import Title from './components/Common/Title';
+import { NO_DATA_LOADED_WARNING } from './constants/constants';
 
 const AppWrapper = styled.div`
 	width: 100%;
@@ -24,8 +25,8 @@ function App() {
 		return <span>Loading...</span>
 	}
 
-	if (isError) {
-		return <span>`Error: ${error?.message}`</span>
+	if (isError || !data) {
+		return <span>`Error: ${error? error.message : NO_DATA_LOADED_WARNING}`</span>
 	}
 
 	const { currencyTableHeaders = [], currencyTableRows, currencyRatesMap } = getCurrencyData(data);

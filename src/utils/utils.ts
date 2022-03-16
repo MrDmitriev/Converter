@@ -1,5 +1,8 @@
-import { PROXY_CORS_WORKAROUND } from "../constants/constants";
-import { ICurrencyRatesMap } from "../interfaces/ICurrencyRatesMap";
+import { AMOUNT_COLUMN, CURRENCY_CODE_COLUMN, CURRENCY_RATE_COLUMN, PROXY_CORS_WORKAROUND } from "../constants/constants";
+
+type CurrencyRatesMap = {
+	[index: string]: number
+};
 
 export const getProxyUrl = (url: string) => `${PROXY_CORS_WORKAROUND}${encodeURI(url)}`
 
@@ -11,18 +14,19 @@ export const convertToNumber = (value: string) => {
 	return typeof value === 'string' ? Number(value.replace(/,/, '.')) : value;
 }
 
-export const getCurrencyData = (textData: any) => {
+export const getCurrencyData = (textData: string) => {
+
 	const items = ConvertTextToJson(textData);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [ _info, headers, ...values] = items;
-	let currencyRatesMap: ICurrencyRatesMap = {};
+	let currencyRatesMap: CurrencyRatesMap = {};
 
 	const currencyTableHeaders = headers.split('|');
 	const currencyTableRows = values.filter(item => !!item).map(valueArr => valueArr.split('|'));
 	currencyTableRows.forEach(row => {
-		const amount = +row[2];
-		const currencyCode = row[3];
-		const currencyRate = Number(row[4].replace(/,/, '.'));
+		const amount = +row[AMOUNT_COLUMN];
+		const currencyCode = row[CURRENCY_CODE_COLUMN];
+		const currencyRate = Number(row[CURRENCY_RATE_COLUMN].replace(/,/, '.'));
 		if (!currencyRatesMap.hasOwnProperty(currencyCode)) {
 			currencyRatesMap[currencyCode] = currencyRate / amount;
 		}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ExchangeRatesTableHeader from './ExchangeRatesTableHeader';
 import ExchangeRatesTableBody from './ExchangeRatesTableBody';
-import { IExchangeRatesTableProps } from '../../interfaces/IExchangeRatesTableProps';
+import { CurrencyTableRowData } from '../../types/CurrencyTableRowData';
 
 const TableWrapperStyled = styled.div`
 	overflow-y: auto;
@@ -13,10 +13,16 @@ const TableWrapperStyled = styled.div`
 const TableStyled = styled.table`
 	border-collapse: collapse;        
 	width: 100%;
-
 `
+type Props = {
+	currencyTableHeaders?: string[];
+	currencyTableRows?: CurrencyTableRowData[];
+	currencyRatesMap?: {
+		[index: string]: number
+	}
+};
 
-export const ExchangeRatesTable: React.FC<IExchangeRatesTableProps> = ({currencyTableHeaders, currencyTableRows}) => {
+export const ExchangeRatesTable: React.FC<Props> = ({currencyTableHeaders, currencyTableRows}: Props) => {
 
 	return (
 		<TableWrapperStyled>

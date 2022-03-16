@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { IExchangeRatesTableProps } from '../interfaces/IExchangeRatesTableProps';
+import { CurrencyTableRowData } from '../types/CurrencyTableRowData';
 import { convertToNumber } from '../utils/utils';
 
 const FormStyled = styled.form`
@@ -47,11 +47,19 @@ const SelectStyled = styled.select`
 	}
 `
 
-const CurrencyConverterForm: React.FC<IExchangeRatesTableProps> = ({currencyRatesMap = {}}) => {
+type Props = {
+	currencyTableHeaders?: string[];
+	currencyTableRows?: CurrencyTableRowData[];
+	currencyRatesMap?: {
+		[index: string]: number
+	}
+};
+
+const CurrencyConverterForm: React.FC<Props> = ({currencyRatesMap = {}}: Props) => {
 	const outputCurrencyCodes = Object.keys(currencyRatesMap);
-	const [inputAmount, setInputAmount] = useState(100);
-	const [outputAmount, setOutputAmount] = useState(100);
-	const [outputCurrencyCode, setOutputCurrencyCode] = useState(outputCurrencyCodes[0])
+	const [inputAmount, setInputAmount] = useState<number>(100);
+	const [outputAmount, setOutputAmount] = useState<number>(100);
+	const [outputCurrencyCode, setOutputCurrencyCode] = useState<string>(outputCurrencyCodes[0])
 
 
 	const calculateOutput = (inputAmount: number) => {

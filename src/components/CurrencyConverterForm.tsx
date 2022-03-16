@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { DEFAULT_CURRENCY_AMOUNT } from '../constants/constants';
 
 import { CurrencyTableRowData } from '../types/CurrencyTableRowData';
 import { convertToNumber } from '../utils/utils';
@@ -57,8 +58,8 @@ type Props = {
 
 const CurrencyConverterForm: React.FC<Props> = ({currencyRatesMap = {}}: Props) => {
 	const outputCurrencyCodes = Object.keys(currencyRatesMap);
-	const [inputAmount, setInputAmount] = useState<number>(100);
-	const [outputAmount, setOutputAmount] = useState<number>(100);
+	const [inputAmount, setInputAmount] = useState<number>(DEFAULT_CURRENCY_AMOUNT);
+	const [outputAmount, setOutputAmount] = useState<number>(DEFAULT_CURRENCY_AMOUNT);
 	const [outputCurrencyCode, setOutputCurrencyCode] = useState<string>(outputCurrencyCodes[0])
 
 

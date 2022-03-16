@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { IExchangeRatesTableProps } from '../interfaces/IExchangeRatesTableProps';
-import { convertToNumber } from '../utils';
+import { convertToNumber } from '../utils/utils';
 
 const FormStyled = styled.form`
 	padding: 20px;
